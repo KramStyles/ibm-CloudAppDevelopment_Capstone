@@ -19,32 +19,54 @@ logger = logging.getLogger(__name__)
 
 # Create an `about` view to render a static about page
 def about(request):
-    return render(request, "djangoapp/about.html")
+    context = {
+        "title": "about us"
+    }
+    return render(request, "djangoapp/about.html", context)
 
 
 # Create a `contact` view to return a static contact page
 def contact(request):
-    return render(request, "djangoapp/contact.html")
+    context = {
+        "title": "contact us"
+    }
+    return render(request, "djangoapp/contact.html", context)
 
 # Create a `login_request` view to handle sign in request
 def login_request(request):
+    context = {}
     if request.method == "GET":
         return render(request, "djangoapp/login.html")
+    
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("pwd")
+
+        user = authenticate(username=username, password=password)
+        if user:
+            login(request, user)
+            context["message"] = "ok"
+        else:
+            context["message"] = "Invalid details"
+        
+        return render(request, "djangoapp/login.html", context)
 
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
     logout(request)
-    return redirect("djangoapp:index")
+    return redirect("djangoapp:login")
 # ...
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
+    
     if request.method == "GET":
         return render(request, "djangoapp/registration.html")
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     context = {}
+    context["title"] = "Dealership Review"
     if request.method == "GET":
         return render(request, 'djangoapp/index.html', context)
 
