@@ -140,3 +140,6 @@ server/djangoapp/migrations/
 *.pyc
 server/djangoapp/migrations/
 
+# Ignore Sqlite3 Database file
+*.sqlite3
+
