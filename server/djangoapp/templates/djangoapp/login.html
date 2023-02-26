@@ -27,26 +27,7 @@
                     <label for="pwd">Password:</label>
                     <input type="password" class="form-control" placeholder="Enter password" name="pwd">
                 </div>
-                {% if message %}
-                    {% if message == "ok" %}
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Success!</strong> Registration successful
-                            <script>
-                                setTimeout(()=>{
-                                    window.top.location = "/djangoapp"
-                                }, 3000);
-                            </script>
-                        </div>
-                    {% else %}
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Error!</strong> {{message}}
-                        </div>
-                    {% endif %}
-                    
-                {% endif %}
-                
+                {% include "djangoapp/partials/form-response.html" %}
                 
                 <button type="submit" class="btn btn-dark">Submit</button>
             </form>
